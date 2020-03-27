@@ -39,7 +39,10 @@ public class TestServiceHealthChecker {
         healthCheckerCountDownLatch.await();
 
         for (ServiceBaseHealthChecker serviceBaseHealthChecker : services) {
-            if (!serviceBaseHealthChecker.isHealth()) allServiceIsHealth = false;
+            if (!serviceBaseHealthChecker.isHealth()) {
+                allServiceIsHealth = false;
+                break;
+            }
         }
 
         System.out.println("全部服务启动情况: " + allServiceIsHealth);
