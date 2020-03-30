@@ -15,3 +15,5 @@
 1.access.limit.classPath // 脚本在classpath下的相对路径
 2.access.limit.fileName // 脚本文件名，脚本接收的参数应为 @AccessLimiter 注解中的属性（未来的版本中会扩展该注解属性）
 ```
+
+### 请注意，组件依赖redis，当没有redis相关配置时，即使添加了 @EnableAccessLimiter 注解，也不会开启限流功能。
