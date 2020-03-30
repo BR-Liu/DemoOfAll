@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "access.limit")
 public class LuaScriptProperties {
 
-    private String classPath = "script";
+    private String classPath = "/script/";
     private String fileName = "rateLimiter.lua";
 
 }
