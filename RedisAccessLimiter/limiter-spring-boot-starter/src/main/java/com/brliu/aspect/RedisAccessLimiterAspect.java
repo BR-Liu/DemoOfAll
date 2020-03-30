@@ -8,24 +8,24 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Aspect
-@Component
 public class RedisAccessLimiterAspect {
 
-    @Resource
     private StringRedisTemplate accessLimiterRedisTemplate;
 
-    @Resource
     private DefaultRedisScript connLimiterRedisScript;
+
+    public RedisAccessLimiterAspect(StringRedisTemplate accessLimiterRedisTemplate, DefaultRedisScript connLimiterRedisScript) {
+        this.accessLimiterRedisTemplate = accessLimiterRedisTemplate;
+        this.connLimiterRedisScript = connLimiterRedisScript;
+    }
 
     @Pointcut("@annotation(com.brliu.annotation.AccessLimiter)")
     public void limit() {
@@ -42,7 +42,7 @@ public class RedisAccessLimiterAspect {
         }
 
         String key = annotation.methodName();
-        Integer limit = annotation.limit();
+        int limit = annotation.limit();
 
         // methodName, 从调用方法签名生成自动一个key
         if (StringUtils.isEmpty(key)) {
@@ -59,7 +59,7 @@ public class RedisAccessLimiterAspect {
         boolean acquired = (boolean) accessLimiterRedisTemplate.execute(
                 connLimiterRedisScript,
                 Collections.singletonList(key),
-                limit.toString()
+                Integer.toString(limit)
         );
 
         if (!acquired) {
