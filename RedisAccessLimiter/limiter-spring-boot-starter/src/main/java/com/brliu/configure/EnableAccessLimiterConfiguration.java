@@ -17,8 +17,7 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 public class EnableAccessLimiterConfiguration {
 
     @Bean(name = "accessLimiterRedisTemplate")
-    public StringRedisTemplate accessLimiterRedisTemplate(
-            RedisConnectionFactory factory) {
+    public StringRedisTemplate accessLimiterRedisTemplate(RedisConnectionFactory factory) {
         return new StringRedisTemplate(factory);
     }
 
