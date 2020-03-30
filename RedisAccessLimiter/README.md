@@ -1,7 +1,7 @@
 基于redis + lua的简易可插拔的限流spring boot starter工具
 @author brliu
 
-##使用说明
+## 使用说明
 
 1. 开启限流能力：在SpringBoot启动类上添加 @EnableAccessLimiter
 2. 为方法配置限流：在方法处添加 @AccessLimiter 注解。
