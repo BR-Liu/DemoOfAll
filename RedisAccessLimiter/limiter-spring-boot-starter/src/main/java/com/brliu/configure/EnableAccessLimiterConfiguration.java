@@ -3,6 +3,8 @@ package com.brliu.configure;
 
 import com.brliu.aspect.RedisAccessLimiterAspect;
 import com.brliu.properties.LuaScriptProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -10,6 +12,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 
 
+@ConditionalOnProperty(prefix = "spring.redis", name = {"host", "port"})
+@EnableConfigurationProperties(LuaScriptProperties.class)
 public class EnableAccessLimiterConfiguration {
 
     @Bean(name = "accessLimiterRedisTemplate")
